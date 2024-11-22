@@ -1,0 +1,32 @@
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* 使用视口高度使其在页面中心 */
+  }
+  
+  .loading-spinner {
+    border: 8px solid rgba(255, 255, 255, 0.2);
+    border-top: 8px solid #3498db; /* 选择一个引人注目的颜色 */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+  }
+  
+  .loading-text {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #333; /* 选择与背景对比的颜色 */
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
