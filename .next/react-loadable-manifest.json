@@ -1,0 +1,38 @@
+{
+  "app\\createpost\\page.js -> quill": {
+    "id": "app\\createpost\\page.js -> quill",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_quill_quill_js.js"
+    ]
+  },
+  "app\\createpost\\page.js -> quill-image-resize": {
+    "id": "app\\createpost\\page.js -> quill-image-resize",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_quill-image-resize_image-resize_min_js.js"
+    ]
+  },
+  "app\\createpost\\page.js -> react-quill": {
+    "id": "app\\createpost\\page.js -> react-quill",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_react-quill_lib_index_js.js"
+    ]
+  },
+  "app\\post\\edit\\[postId]\\page.js -> quill": {
+    "id": "app\\post\\edit\\[postId]\\page.js -> quill",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_quill_quill_js.js"
+    ]
+  },
+  "app\\post\\edit\\[postId]\\page.js -> quill-image-resize": {
+    "id": "app\\post\\edit\\[postId]\\page.js -> quill-image-resize",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_quill-image-resize_image-resize_min_js.js"
+    ]
+  },
+  "app\\post\\edit\\[postId]\\page.js -> react-quill": {
+    "id": "app\\post\\edit\\[postId]\\page.js -> react-quill",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_react-quill_lib_index_js.js"
+    ]
+  }
+}
