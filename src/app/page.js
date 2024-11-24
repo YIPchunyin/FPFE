@@ -15,6 +15,7 @@ export default function Home() {
     async function fetchData() {
       // const data = await get("/posts/sort/likes/desc");
       const data = await get("/posts/");
+      
       console.log(data);
       setPostData(data);
     }
