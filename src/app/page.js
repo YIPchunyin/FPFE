@@ -13,7 +13,9 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchData() {
+      // const data = await get("/posts/sort/likes/desc");
       const data = await get("/posts/");
+      console.log(data);
       setPostData(data);
     }
 
@@ -70,7 +72,7 @@ export default function Home() {
       <main className="w-full">
         <h2 className="my-5 text-xl font-semibold">最新帖子</h2>
         {/* 未加載完成則 */}
-        
+
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full">
   {[...postData]
@@ -120,9 +122,10 @@ export default function Home() {
 
 
         {loading && (
-          <div className="flex justify-center my-5">
-            <p className="text-lg text-gray-600">加载中...</p>
-          </div>
+          // <div className="flex justify-center my-5">
+          //   <p className="text-lg text-gray-600">加载中...</p>
+          // </div>
+          <LoadingSpinner />
         )}
       </main>
     </div>

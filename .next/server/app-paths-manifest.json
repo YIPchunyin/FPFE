@@ -1,7 +1,8 @@
 {
-  "/postsample/[postId]/page": "app/postsample/[postId]/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js",
-  "/user/[userId]/page": "app/user/[userId]/page.js",
   "/post/edit/[postId]/page": "app/post/edit/[postId]/page.js",
-  "/createpost/page": "app/createpost/page.js"
+  "/createpost/page": "app/createpost/page.js",
+  "/post/search/[keyword]/page": "app/post/search/[keyword]/page.js",
+  "/postsample/[postId]/page": "app/postsample/[postId]/page.js"
 }

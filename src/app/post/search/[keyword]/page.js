@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { post, get } from '../../../../utils/request'; // 假设这是您用来请求数据的工具
 import Image from 'next/image';
 import Null from '@/app/public/null.png';
+import Link from 'next/link';
 export default function SearchPostPage() {
   let { keyword } = useParams();
   //將keyword塞入layout的搜索框裏
@@ -44,19 +45,24 @@ export default function SearchPostPage() {
       <div key={post._id} className="flex items-center p-8 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
         {/* 左侧图片 */}
         {post.img_path && (
+          <Link key={post._id} href={`/postsample/${post._id}`}>
           <img
             className="w-48 h-48 object-cover rounded-lg mr-8"
             src={post.img_path}
             alt={post.title}
           />
+          </Link>
         )}
         {/* 右侧文字 */}
         <div className="flex-1">
+        <Link key={post._id} href={`/postsample/${post._id}`}>
           <h2 className="text-2xl font-semibold text-gray-800">{post.title}</h2>
           <div
             className="text-lg text-gray-600"
             dangerouslySetInnerHTML={{ __html: truncateContent(post.content, 100) }}
           />
+          </Link>
+
         </div>
       </div>
     ))
