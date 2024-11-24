@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { get } from "../utils/request";
 import PostActions from "./components/PostActions";
-
+import LoadingSpinner from "@/app/components/LoadingSpinner"
 
 export default function Home() {
   const [postData, setPostData] = useState([]);
@@ -69,6 +69,9 @@ export default function Home() {
 
       <main className="w-full">
         <h2 className="my-5 text-xl font-semibold">最新帖子</h2>
+        {/* 未加載完成則 */}
+        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full">
   {[...postData]
     .sort((a, b) => new Date(b.Creation_time) - new Date(a.Creation_time))
