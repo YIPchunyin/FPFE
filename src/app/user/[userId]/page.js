@@ -73,78 +73,84 @@ const UserAllPost = () => {
     }
 
     return (
-        <div className="mx-auto bg-white shadow-md rounded-lg overflow-hidden mt-8 p-6 transition-transform duration-500 transform translate-y-0 opacity-0 animate-fadeIn" style={{maxWidth: "80%"}}>
-            <div className="flex items-center space-x-6 mb-6">
-                <img className="w-32 h-32 rounded-full shadow-lg" src={userinfo.img_path} alt={`${userinfo.name}的头像`} />
-                <div>
-                    <h2 className="text-4xl font-bold">{userinfo.name}</h2>
-                    <p className="text-xl font-light text-gray-500">{userinfo.role}</p>
-                </div>
-            </div>
-            <div className="border-t pt-4">
-                <p className="text-lg text-gray-700"><strong>用户名:</strong> {userinfo.username}</p>
-                <p className="text-lg text-gray-700"><strong>电子邮件:</strong> {userinfo.email}</p>
-                <p className="text-lg text-gray-700"><strong>简介:</strong> {userinfo.introduce}</p>
-                <p className="text-lg text-gray-700"><strong>创建时间:</strong> {new Date(userinfo.Creation_time).toLocaleString('zh-TW')}</p>
-                <p className="text-lg text-gray-700"><strong>入站天数:</strong> {daysSinceCreation}</p>
-            </div>
-            <div className="mt-6">
-                <h3 className="text-3xl font-semibold mb-4">用户帖子</h3>
-                {/* 示例帖子列表 */}
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full">
-          {[...postData]
-            .sort((a, b) => new Date(b.Creation_time) - new Date(a.Creation_time))
-            .slice(0, visiblePosts)
-            .map((post) => (
-              <div key={post._id} className="relative">
-                <Link key={post._id} href={`/postsample/${post._id}`}>
-                  <div className="bg-gray-100 p-4 border border-gray-300 rounded shadow-lg hover:shadow-2xl animation-slideInUp">
-                    {post.img_path && (
-                      <div className="w-full h-[300px] overflow-hidden mb-2 rounded-lg">
-                        <img
-                          src={post.img_path}
-                          alt={post.title}
-                          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                        />
-                      </div>
-                    )}
-                    <h3 className="text-lg font-medium overflow-hidden overflow-ellipsis whitespace-nowrap">
-                      {post.title.length > 20 ? `${post.title.substring(0, 20)}...` : post.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm">
-                      {new Date(post.Creation_time).toLocaleString(undefined, {
-                        year: "numeric",
-                        month: "2-digit",
-                        day: "2-digit",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: false,
-                      })}
-                    </p>
-                  </div>
-                </Link>
-                <div className="mt-2 w-full m-auto flex justify-center">
-                  <PostActions
-                    postId={post._id}
-                    initialLikes={post.likes}
-                    initialCollections={post.collections}
-                    initialIsLiked={post.isLiked}
-                    initialIsCollected={post.isCollected}
+<div
+  className="mx-auto bg-white shadow-md rounded-lg overflow-hidden mt-8 p-6 transition-opacity duration-500 transform opacity-0 animate-fadeIn"
+  style={{ maxWidth: "80%" }}
+>
+  <div className="flex items-center mb-6">
+    {/* 左侧头像 */}
+    <img
+      className="w-32 h-32 rounded-full shadow-lg transform transition-transform duration-500 translate-x-[-50px] opacity-0 animate-slideInLeft"
+      src={userinfo.img_path}
+      alt={`${userinfo.name}的头像`}
+    />
+    {/* 右侧文字 */}
+    <div className="ml-6 transform transition-transform duration-500 translate-x-[50px] opacity-0 animate-slideInRight">
+      <h2 className="text-4xl font-bold">{userinfo.name}</h2>
+      <p className="text-xl font-light text-gray-500">{userinfo.role}</p>
+      <p className="text-lg text-gray-700"><strong>电子邮件:</strong> {userinfo.email}</p>
+    <p className="text-lg text-gray-700"><strong>简介:</strong> {userinfo.introduce}</p>
+    <p className="text-lg text-gray-700"><strong>创建时间:</strong> {new Date(userinfo.Creation_time).toLocaleString('zh-TW')}</p>
+    <p className="text-lg text-gray-700"><strong>入站天数:</strong> {daysSinceCreation}</p>
+
+    </div>
+  </div>  
+  <div className="mt-6">
+    <h3 className="text-3xl font-semibold mb-4">用户帖子</h3>
+    {/* 示例帖子列表 */}
+  </div>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full">
+    {[...postData]
+      .sort((a, b) => new Date(b.Creation_time) - new Date(a.Creation_time))
+      .slice(0, visiblePosts)
+      .map((post) => (
+        <div key={post._id} className="relative">
+          <Link key={post._id} href={`/postsample/${post._id}`}>
+            <div className="bg-gray-100 p-4 border border-gray-300 rounded shadow-lg hover:shadow-2xl animation-slideInUp">
+              {post.img_path && (
+                <div className="w-full h-[300px] overflow-hidden mb-2 rounded-lg">
+                  <img
+                    src={post.img_path}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                   />
                 </div>
-              </div>
-            ))}
-        </div>
-
-
-        {loading && (
-          <div className="flex justify-center my-5">
-            <p className="text-lg text-gray-600">加载中...</p>
+              )}
+              <h3 className="text-lg font-medium overflow-hidden overflow-ellipsis whitespace-nowrap">
+                {post.title.length > 20 ? `${post.title.substring(0, 20)}...` : post.title}
+              </h3>
+              <p className="text-gray-600 text-sm">
+                {new Date(post.Creation_time).toLocaleString(undefined, {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: false,
+                })}
+              </p>
+            </div>
+          </Link>
+          <div className="mt-2 w-full m-auto flex justify-center">
+            <PostActions
+              postId={post._id}
+              initialLikes={post.likes}
+              initialCollections={post.collections}
+              initialIsLiked={post.isLiked}
+              initialIsCollected={post.isCollected}
+            />
           </div>
-        )}
-
         </div>
+      ))}
+  </div>
+
+  {loading && (
+    <div className="flex justify-center my-5">
+      <p className="text-lg text-gray-600">加载中...</p>
+    </div>
+  )}
+</div>
+
     );
 }
 

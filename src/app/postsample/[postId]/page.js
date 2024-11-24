@@ -30,10 +30,11 @@ const PostDetail = () => {
     const fetchPost = async () => {
       try {
         const postData = await get(`/posts/${postId}/getPostData`, {}, true);
+        console.log(postData);
         setPostPermission(postData.permission);
         setPostdata(postData.post);
 
-        const commentsData = await get(`/posts/${postId}/comments/${currentPage}/${commentsPerPage}`, false);
+        const commentsData = await get(`/posts/${postId}/comments/${currentPage}/${commentsPerPage}`, true);
         setComments(commentsData.comments);
         setTotalPages(commentsData.totalPages);
 
@@ -56,8 +57,12 @@ const PostDetail = () => {
   useEffect(() => {
     const getcommentdata = async () => {
       const commentdata = await get(`/posts/${postId}/comments/${currentPage}/${commentsPerPage}`, false);
-      setComments(commentdata.comments);
-      setTotalPages(commentdata.totalPages);
+      console.log(commentdata);
+      if (commentdata) {
+        setComments(commentdata.comments);
+        setTotalPages(commentdata.totalPages);
+      }
+
     }
     getcommentdata();
 
@@ -98,6 +103,12 @@ const PostDetail = () => {
   };
 
   const handleCommentSubmit = async (e) => {
+    //如果未登錄
+    const token = localStorage.getItem("token");
+    if (token == null) {
+      alert("Please login first");
+      return;
+    }
     e.preventDefault();
     if (!comment.trim()) return;
     setLoading(true);
@@ -276,11 +287,20 @@ const PostDetail = () => {
             className="ql-editor"
             dangerouslySetInnerHTML={{ __html: postdata.content }}
           />
+          {/* //如果有更新時間 */}
+          {
+            postdata.Update_time && (
+              <p className="post-date text-gray-500">
+                Updated on: {new Date(postdata.Update_time).toLocaleString()}
+              </p>
+            )
+          }
+
           <p className="post-date text-gray-500">
             Posted on: {new Date(postdata.Creation_time).toLocaleString()}
           </p>
           <div className="author-info font-semibold">
-            <strong>发帖人:</strong> {postdata.user_id.username}
+            <strong>發帖人:</strong> {postdata.user_id.username}
           </div>
 
           {postPermission && (
@@ -298,9 +318,6 @@ const PostDetail = () => {
               </button>
 
             </div>
-
-
-
           )}
         </div>
 
@@ -324,7 +341,8 @@ const PostDetail = () => {
           </div>
 
           <div className="comments-list space-y-6">
-            {comments.map((comment) => (
+
+            {comments && comments.map((comment) => (
               <div key={comment._id} className="comment flex border-b border-gray-200 py-4 items-start">
                 <Link href={`/user/${comment.user._id}/`}>
                   <Image
@@ -453,18 +471,35 @@ const PostDetail = () => {
             </div>
           </div>
         </div>
-        <div className=" fixed right-20 top-24 h-auto bg-transparent p-3">
+        <div className="fixed right-20 top-24 space-y-6 bg-transparent">
+          {/* Author Information and PostActions */}
+          <div className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            {/* Author Info */}
+            <Link href={`/user/${postdata.user_id._id}`} className="flex items-center">
+              <img
+                className="w-12 h-12 rounded-full border border-gray-300 mr-4"
+                src={postdata.user_id.img_path}
+                alt="user avatar"
+              />
+              <div>
+                <p className="text-sm font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200" style={{fontSize: "1.6rem", fontWeight: "bold", textAlign: "center"}}>
+                  {postdata.user_id.name}
+                </p>
+                <p className="text-xs text-gray-500">{postdata.user_id.email}</p>
+              </div>
+            </Link>
+          </div>
           <PostActions postId={postdata._id} />
+          {/* Table of Contents */}
           {toc.length > 0 && (
-            <div className="toc fixed right-20 top-44 w-64 max-h-96 overflow-y-auto p-3 border border-gray-300 rounded bg-white shadow-lg">
-              <h3 className="text-xl font-semibold">目录</h3>
+            <div className="toc w-64 max-auto overflow-y-auto p-4 border border-gray-300 rounded-lg bg-white shadow-lg">
+              <h3 className="text-xl font-semibold mb-2">目录</h3>
               <ul>
                 {toc.map((item) => (
-                  <li key={item.id} className={`toc-item flex items-center ${activeId === item.id ? "font-bold" : ""} mb-2`}>
+                  <li key={item.id} className={`toc-item flex items-center mb-2 ${activeId === item.id ? "font-bold" : ""}`}>
                     {activeId === item.id && <span className="indicator text-blue-400 mr-2">•</span>}
                     <button
-                      className={`toc-link toc-${item.level.toLowerCase()} ${activeId === item.id ? "text-blue-600" : "text-black"
-                        } text-left w-full py-2`}
+                      className={`toc-link toc-${item.level.toLowerCase()} ${activeId === item.id ? "text-blue-600" : "text-black"} text-left w-full py-2`}
                       onClick={() => scrollToHeading(item.id)}
                     >
                       {item.text}
@@ -475,6 +510,10 @@ const PostDetail = () => {
             </div>
           )}
         </div>
+
+
+
+
       </div>
     </div>
   );

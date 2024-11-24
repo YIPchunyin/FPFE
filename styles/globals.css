@@ -28,3 +28,43 @@
 .animate-fadeIn {
     animation: fadeIn 0.5s ease-out forwards;
 }
+.ql-toolbar {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity)); 
+  border-bottom: 1px solid #ccc;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s forwards;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 1s forwards;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 1s forwards;
+}

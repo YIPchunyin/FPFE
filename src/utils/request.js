@@ -1,5 +1,6 @@
 import { getToken } from "./auth";
-const apiBaseURL = "https://fpbe-befowkbmm-colins-projects-3531ded3.vercel.app";
+// const apiBaseURL = "http://localhost:3001";
+const apiBaseURL = "https://fpbe-kognatkdz-colins-projects-3531ded3.vercel.app";
 async function request(url, options = {}, needToken = true) {
   // 设置默认请求头
   options.headers = {
@@ -28,7 +29,7 @@ async function request(url, options = {}, needToken = true) {
     // console.error("请求错误:", error);
     // return new Promise.reject(error);
     // 打印请求哪条api出错
-    console.log('请求哪条api出错:', url);
+    console.log('请求哪条api出错:', `${apiBaseURL}${url}`);
     console.log('请求失败:', error);
   }
 }

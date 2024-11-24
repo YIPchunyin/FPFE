@@ -3,7 +3,8 @@ import { useRouter } from 'next/router'; // 导入 useRouter
 import { useEffect, useState } from 'react';
 import { useParams } from "next/navigation";
 import { post, get } from '../../../../utils/request'; // 假设这是您用来请求数据的工具
-
+import Image from 'next/image';
+import Null from '@/app/public/null.png';
 export default function SearchPostPage() {
   let { keyword } = useParams();
   //將keyword塞入layout的搜索框裏
@@ -37,21 +38,41 @@ export default function SearchPostPage() {
   }
 
   return (
-    <div>
-      {posts.map(post => (
-        <div key={post._id}>
-          <h2>{post.title}</h2>
-          {/* 展示图片 */}
-          {post.img_path
-            && <img src={post.img_path
-            } alt={post.title} />}
-          <div
-            dangerouslySetInnerHTML={{ __html: truncateContent(post.content, 100) }} // 使用 truncateContent 函数处理内容
+<div className="space-y-8 m-auto" style={{ maxWidth: '80%' }}>
+  {posts.length > 0 ? (
+    posts.map(post => (
+      <div key={post._id} className="flex items-center p-8 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+        {/* 左侧图片 */}
+        {post.img_path && (
+          <img
+            className="w-48 h-48 object-cover rounded-lg mr-8"
+            src={post.img_path}
+            alt={post.title}
           />
-          <p>--------------------</p>
+        )}
+        {/* 右侧文字 */}
+        <div className="flex-1">
+          <h2 className="text-2xl font-semibold text-gray-800">{post.title}</h2>
+          <div
+            className="text-lg text-gray-600"
+            dangerouslySetInnerHTML={{ __html: truncateContent(post.content, 100) }}
+          />
         </div>
-      ))}
+      </div>
+    ))
+  ) : (
+    <div className="flex flex-col items-center justify-center p-8 bg-white rounded-lg shadow-md">
+      <Image
+        className="w-24 h-24 mb-4"
+        src={Null}
+        alt="No results"
+      />
+      <p className="text-xl font-semibold text-gray-800">沒有找到相關結果</p>
     </div>
+  )}
+</div>
+
+
   );
 }
 
