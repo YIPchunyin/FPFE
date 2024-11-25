@@ -69,14 +69,14 @@ export default function RootLayout({ children }) {
         try {
           const res = await post("/users/get-user-info", { token }, true);
           if (res.status === 200) {
-            console.log("用户信息:", res);
+            // console.log("用戶信息:", res);
             setUserDetails(res.user);
             setIsLoggedIn(true);
             localStorage.setItem("userId", res.user._id);
             console.log(res.user._id)
           }
         } catch (error) {
-          console.log("请求用户信息时发生错误:", error);
+          console.log("請求用戶信息時發生錯誤:", error);
         }
       };
       fetchUserDetails();
@@ -151,7 +151,7 @@ export default function RootLayout({ children }) {
                   {isLoggedIn && !isOnCreatePostPage && (
                     <div className="cursor-pointer ml-3">
                       <Link href="/createpost">
-                        <Image src={creatpost} alt="发帖" width={30} height={30} />
+                        <Image src={creatpost} alt="發帖" width={30} height={30} />
                       </Link>
                     </div>
                   )}

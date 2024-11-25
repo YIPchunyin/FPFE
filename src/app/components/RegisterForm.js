@@ -15,7 +15,7 @@ const RegisterForm = ({ onClose, onLoginSuccess }) => {
     event.preventDefault();
     // 简单验证
     if (password !== confirmPassword) {
-      setError("密码和确认密码不匹配");
+      setError("密碼和確認密碼不匹配");
       toast.error("密碼和確認密碼不匹配", { autoClose: 3000 });
       return;
     }
@@ -26,7 +26,7 @@ const RegisterForm = ({ onClose, onLoginSuccess }) => {
       
       if (res.status === 200) {
         // 注册成功
-        console.log('注册成功');
+        console.log('註冊成功');
         // 存储返回的 token
         localStorage.setItem("token", res.token);
         localStorage.setItem("userId", res.data._id);
@@ -40,13 +40,13 @@ const RegisterForm = ({ onClose, onLoginSuccess }) => {
         onClose();
       } else {
         // 注册失败
-        console.log('注册失败:', res.message);
+        console.log('註冊成功:', res.message);
         toast.error(res.message || "註冊失敗，請重試。", { autoClose: 3000 });
         setError(res.message);
       }
     } catch (error) {
       console.error(error);
-      setError("发生错误，请稍后再试。");
+      setError("發生錯誤，請稍後再試。");
       toast.error("發生錯誤，請稍後重試。", { autoClose: 3000 });
     }
   };
@@ -69,11 +69,11 @@ const RegisterForm = ({ onClose, onLoginSuccess }) => {
           pauseOnFocusLoss
         /><div className='modalContent' style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
           
-        <h2>注册</h2>
+        <h2>註冊</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>} {/* 显示错误信息 */}
         <form onSubmit={handleRegister}>
           <div>
-            <label htmlFor="accountName">账户名称</label>
+            <label htmlFor="accountName">帳戶名稱</label>
             <input
               type="text"
               id="accountName"
@@ -95,7 +95,7 @@ const RegisterForm = ({ onClose, onLoginSuccess }) => {
             />
           </div>
           <div>
-            <label htmlFor="email">电子邮件</label>
+            <label htmlFor="email">電子郵件</label>
             <input
               type="email"
               id="email"
@@ -106,7 +106,7 @@ const RegisterForm = ({ onClose, onLoginSuccess }) => {
             />
           </div>
           <div>
-            <label htmlFor="password">密码</label>
+            <label htmlFor="password">密碼</label>
             <input
               type="password"
               id="password"
@@ -117,7 +117,7 @@ const RegisterForm = ({ onClose, onLoginSuccess }) => {
             />
           </div>
           <div>
-            <label htmlFor="confirmPassword">确认密码</label>
+            <label htmlFor="confirmPassword">確認密碼</label>
             <input
               type="password"
               id="confirmPassword"
@@ -127,7 +127,7 @@ const RegisterForm = ({ onClose, onLoginSuccess }) => {
               style={styles.input}
             />
           </div>
-          <button type="submit" style={styles.button}>注册</button>
+          <button type="submit" style={styles.button}>註冊</button>
         </form>
       </div>
     </div>

@@ -29,8 +29,8 @@ async function request(url, options = {}, needToken = true) {
     // console.error("请求错误:", error);
     // return new Promise.reject(error);
     // 打印请求哪条api出错
-    console.log('请求哪条api出错:', `${apiBaseURL}${url}`);
-    console.log('请求失败:', error);
+    console.log('邊條AIP請求失敗:', `${apiBaseURL}${url}`);
+    console.log('请求失敗:', error);
   }
 }
 
@@ -81,12 +81,12 @@ export async function uploadImage(imageFile) {
   try {
     const response = await fetch(`${apiBaseURL}/upload`, options);
     if (!response.ok) {
-      throw new Error("图片上传失败！");
+      throw new Error("圖片上傳失敗！");
     }
     const result = await response.json();
     return result; // 返回上传结果
   } catch (error) {
-    console.error('上传图片失败:', error);
+    console.error('圖片上傳失敗:', error);
     throw error; // 重新抛出错误以供外部处理
   }
 }

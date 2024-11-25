@@ -55,7 +55,7 @@ const EditPost = () => {
             if (file) {
               const range = quill.getSelection();
               if (range) {
-                quill.insertText(range.index, '上传中..', { color: 'red' });
+                quill.insertText(range.index, '上傳中..', { color: 'red' });
                 quill.setSelection(range.index + 5);
               }
 
@@ -67,10 +67,10 @@ const EditPost = () => {
                 quill.insertEmbed(range.index, 'image', imageUrl);
                 quill.setSelection(range.index + 1);
               } catch (error) {
-                alert("内容图片上传失败，请重试");
+                alert("內容圖片上傳失敗，請重試");
                 if (range) {
                   quill.deleteText(range.index, 5);
-                  quill.insertText(range.index, '上传失败', { color: 'red' });
+                  quill.insertText(range.index, '上傳失敗', { color: 'red' });
                 }
               } finally {
                 setLoadingCoverImage(false);
@@ -96,7 +96,7 @@ const EditPost = () => {
         console.log(response);
         const { post } = response;
         if (response.permission == false) {
-          alert("您没有修改权限。");
+          alert("您沒有修改許可權。");
           router.push(`/postsample/${postId}`);
           return;
         }
@@ -107,7 +107,7 @@ const EditPost = () => {
           quillRef.current.root.innerHTML = post.content;
         }
       } catch (error) {
-        console.log("获取帖子数据失败，请重试");
+        console.log("獲取帖子數據失敗，請重試");
         // router.push(`/postsample/${postId}`);
       }
     };
@@ -123,7 +123,7 @@ const EditPost = () => {
         const uploadResult = await uploadImage(file);
         setCoverImage(uploadResult.imageUrl);
       } catch (error) {
-        alert("封面图片上传失败，请重试");
+        alert("封面圖片上傳失敗，請重試");
       } finally {
         setLoadingCoverImage(false);
       }
@@ -132,12 +132,12 @@ const EditPost = () => {
 
   const handleSubmit = async () => {
     if (!title.trim()) {
-      alert("请输入标题");
+      alert("請輸入標題");
       return;
     }
 
     if (!text.trim()) {
-      alert("请输入内容");
+      alert("請輸入內容");
       return;
     }
 
@@ -150,11 +150,11 @@ const EditPost = () => {
       };
       const response = await post(`/posts/${postId}/edit`, postData, true);
       if (response.status !== 200) {
-        throw new Error(response.message || "编辑失败");
+        throw new Error(response.message || "編輯失敗");
       }
       router.push(`/postsample/${postId}`);
     } catch (error) {
-      alert(`编辑失败: ${error.message}`);
+      alert(`編輯失敗: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -163,7 +163,7 @@ const EditPost = () => {
   useEffect(() => {
     const token = getToken();
     if (!token) {
-      alert("请先登录");
+      alert("請先登錄");
       router.push("/");
     }
   }, []);
@@ -171,18 +171,18 @@ const EditPost = () => {
   return (
     <div className="flex flex-col items-center p-6 m-auto bg-gray-100" style={{ width: "100%" }}>
       <div className="w-full mb-6 bg-white p-4 rounded shadow" style={{ maxWidth: "60%" }}>
-        <h2 className="text-2xl font-semibold mb-4">上传封面图片</h2>
+        <h2 className="text-2xl font-semibold mb-4">上傳封面圖片</h2>
         <div
           onClick={() => document.getElementById('cover-image-input').click()}
           className={`relative border-dashed m-auto w-5/6 flex items-center justify-center rounded mb-4 cursor-pointer ${loadingCoverImage ? 'bg-gray-300' : 'bg-white'}`}
           style={{ height: '500px' }}
         >
           {loadingCoverImage ? (
-            <span className="text-center">上传中...</span>
+            <span className="text-center">上傳中...</span>
           ) : coverImage ? (
             <img src={coverImage} alt="Uploaded Cover" className="object-contain w-full h-full" style={{ width: '100%', borderRadius: '0.5rem' }} />
           ) : (
-            <span className="text-gray-500">点击上传图片</span>
+            <span className="text-gray-500">点击上傳圖片</span>
           )}
           <input
             type="file"
@@ -195,12 +195,12 @@ const EditPost = () => {
       </div>
 
       <div className="w-full bg-white p-4 rounded shadow" style={{ maxWidth: "60%" }}>
-        <h2 className="text-2xl font-semibold mb-4">输入内容</h2>
+        <h2 className="text-2xl font-semibold mb-4">輸入内容</h2>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="输入标题..."
+          placeholder="輸入標題..."
           className="w-full p-3 mb-4 border border-gray-300 rounded"
         />
         <div style={{ maxHeight: '700px', overflow: 'auto', minHeight: '200px' }}>
@@ -211,7 +211,7 @@ const EditPost = () => {
           disabled={isSubmitting}
           className={`w-full py-2 mt-4 text-white rounded ${isSubmitting ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'}`}
         >
-          {isSubmitting ? "发布中..." : "更新帖子"}
+          {isSubmitting ? "發佈中..." : "更新帖子"}
         </button>
       </div>
     </div>

@@ -15,14 +15,14 @@ export default function SearchPostPage() {
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
-        console.log('搜索关键字:', keyword);
+        console.log('搜索關鍵字:', keyword);
         const res = await post('/posts/search', { keyword });
         if (res.status === 200) {
           setPosts(res.posts); // 假设返回的数据在 data 属性中
-          console.log('搜索结果:', res);
+          console.log('搜索結果:', res);
         }
       } catch (error) {
-        console.error('搜索请求失败:', error);
+        console.error('搜索请求失敗:', error);
       }
     };
 

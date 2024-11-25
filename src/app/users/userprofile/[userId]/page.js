@@ -52,9 +52,9 @@ export default function UserProfilePage() {
         //更新使用者頭像
         setUser((prevUser) => ({ ...prevUser, img_path: imageUrl }));
         await put(`/users/${userId}`, { img_path: imageUrl });
-        toast.success("头像更新成功!");
+        toast.success("頭像更新成功!");
       } catch (error) {
-        toast.error("头像更新失败，请重试");
+        toast.error("頭像更新成功，請重試");
         console.error("Image upload error:", error);
       } finally {
         setLoadingImage(false);

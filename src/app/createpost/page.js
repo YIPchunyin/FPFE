@@ -57,7 +57,7 @@ const Post = () => {
             if (file) {
               const range = quill.getSelection();
               if (range) {
-                quill.insertText(range.index, '上传中..', { color: 'red' });
+                quill.insertText(range.index, '上傳中..', { color: 'red' });
                 quill.setSelection(range.index + 5);
               }
 
@@ -70,10 +70,10 @@ const Post = () => {
                 quill.insertEmbed(range.index, 'image', imageUrl);
                 quill.setSelection(range.index + 1);
               } catch (error) {
-                alert("图片上传失败，请重试");
+                alert("圖片上傳失敗，請重試");
                 if (range) {
                   quill.deleteText(range.index, 5);
-                  quill.insertText(range.index, '上传失败', { color: 'red' });
+                  quill.insertText(range.index, '上傳失敗', { color: 'red' });
                 }
               } finally {
                 setLoadingImage(false);
@@ -100,7 +100,7 @@ const Post = () => {
         const uploadResult = await uploadImage(file);
         setCoverImage(uploadResult.imageUrl);
       } catch (error) {
-        alert("封面图片上传失败，请重试");
+        alert("封面圖片上傳失敗，請重試");
       } finally {
         setLoadingImage(false);
       }
@@ -113,12 +113,12 @@ const Post = () => {
 
   const handleSubmit = async () => {
     if (!title.trim()) {
-      alert("请输入标题");
+      alert("請輸入標題");
       return;
     }
 
     if (!text.trim()) {
-      alert("请输入内容");
+      alert("請輸入內容");
       return;
     }
 
@@ -131,12 +131,12 @@ const Post = () => {
       };
       const response = await post('/posts/create-post', postData, true);
       if (response.status !== 200) {
-        throw new Error(response.message || "发布失败");
+        throw new Error(response.message || "發布失敗");
       }
       const postId = response.postId;
       window.location.href = `/postsample/${postId}`;
     } catch (error) {
-      alert(`发布失败: ${error.message}`);
+      alert(`發布失敗: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -145,7 +145,7 @@ const Post = () => {
   useEffect(() => {
     const token = getToken();
     if (!token) {
-      alert("请先登录");
+      alert("請先登入");
       router.push("/");
     }
   }, []);
@@ -153,18 +153,18 @@ const Post = () => {
   return (
     <div className="flex flex-col items-center p-6 m-au bg-gray-100" style={{ width: "100%" }}>
       <div className="w-full mb-6 bg-white p-4 rounded shadow" style={{ maxWidth: "80%" }}>
-        <h2 className="text-2xl font-semibold mb-4">上传封面图片</h2>
+        <h2 className="text-2xl font-semibold mb-4">上傳封面圖片</h2>
         <div
           onClick={() => document.getElementById('cover-image-input').click()}
           className={`relative border-dashed m-auto w-5/6 flex items-center justify-center rounded mb-4 cursor-pointer ${loadingImage ? 'bg-gray-300' : 'bg-white'}`}
           style={{ height: '500px' }}
         >
           {loadingImage ? (
-            <span className="text-center">上传中...</span>
+            <span className="text-center">上傳中...</span>
           ) : coverImage ? (
             <img src={coverImage} alt="Uploaded Cover" className="object-contain w-full h-full" style={{ width: '100%', borderRadius: '0.5rem' }} />
           ) : (
-            <span className="text-gray-500">点击上传图片</span>
+            <span className="text-gray-500">點擊上傳圖片</span>
           )}
           <input
             type="file"
@@ -177,24 +177,24 @@ const Post = () => {
       </div>
 
       <div className="w-full bg-white p-4 rounded shadow" style={{ maxWidth: "80%" }}>
-        <h2 className="text-2xl font-semibold mb-4">输入内容</h2>
+        <h2 className="text-2xl font-semibold mb-4">輸入內容</h2>
         <input
           type="text"
           value={title}
           onChange={handleTitleChange}
-          placeholder="输入标题..."
+          placeholder="輸入標題..."
           className="w-full p-3 mb-4 border border-gray-300 rounded"
         />
         <div style={{ maxHeight: '700px', overflow: 'auto', minHeight: '200px' }}>
           <div ref={quillRef} className="mt-2 max-h-screen" style={{ height: 'auto' }} />
         </div>
-        {loadingImage && <div className="mt-2 text-orange-600">图片加载中...</div>}
+        {loadingImage && <div className="mt-2 text-orange-600">圖片載入中...</div>}
         <button
           onClick={handleSubmit}
           disabled={isSubmitting}
           className={`w-full py-2 mt-4 text-white rounded ${isSubmitting ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'}`}
         >
-          {isSubmitting ? "发布中..." : "发布帖子"}
+          {isSubmitting ? "發佈中..." : "發布貼文"}
         </button>
       </div>
     </div>

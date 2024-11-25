@@ -31,7 +31,7 @@ const UserAllPost = () => {
                 const res2 = await get(`/posts/${userId}`, false);
                 setPostsData(res2);
             } catch (error) {
-                console.error('Failed to fetch user info:', error);
+                console.error('獲取用戶信息失敗:', error);
             }
         }
         getUserdata();
@@ -64,10 +64,6 @@ const UserAllPost = () => {
         };
       }, [loading]);
 
-
-
-
-
     if (!userinfo.username) {
         return <LoadingSpinner />;
     }
@@ -88,10 +84,10 @@ const UserAllPost = () => {
     <div className="ml-6 transform transition-transform duration-500 translate-x-[50px] opacity-0 animate-slideInRight">
       <h2 className="text-4xl font-bold">{userinfo.name}</h2>
       <p className="text-xl font-light text-gray-500">{userinfo.role}</p>
-      <p className="text-lg text-gray-700"><strong>电子邮件:</strong> {userinfo.email}</p>
-    <p className="text-lg text-gray-700"><strong>简介:</strong> {userinfo.introduce}</p>
-    <p className="text-lg text-gray-700"><strong>创建时间:</strong> {new Date(userinfo.Creation_time).toLocaleString('zh-TW')}</p>
-    <p className="text-lg text-gray-700"><strong>入站天数:</strong> {daysSinceCreation}</p>
+      <p className="text-lg text-gray-700"><strong>電子郵件:</strong> {userinfo.email}</p>
+    <p className="text-lg text-gray-700"><strong>簡介:</strong> {userinfo.introduce}</p>
+    <p className="text-lg text-gray-700"><strong>創建時間:</strong> {new Date(userinfo.Creation_time).toLocaleString('zh-TW')}</p>
+    <p className="text-lg text-gray-700"><strong>入站天數:</strong> {daysSinceCreation}</p>
 
     </div>
   </div>  
@@ -146,7 +142,7 @@ const UserAllPost = () => {
 
   {loading && (
     <div className="flex justify-center my-5">
-      <p className="text-lg text-gray-600">加载中...</p>
+      <p className="text-lg text-gray-600">加載中...</p>
     </div>
   )}
 </div>

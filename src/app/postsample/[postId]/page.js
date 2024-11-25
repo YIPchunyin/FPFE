@@ -43,7 +43,7 @@ const PostDetail = () => {
 
         generateToc(postData.post.content);
       } catch (error) {
-        setError("Failed to load post and comments");
+        setError("獲取評論失敗");
         console.error(error);
       }
     };
@@ -185,7 +185,7 @@ const PostDetail = () => {
   };
   const handleDeletePost = async () => {
     // 是否確認刪除
-    const confirmed = window.confirm("您确定要删除这篇文章吗？");
+    const confirmed = window.confirm("您確定要删除這篇文章嗎？");
     if (!confirmed) {
       return; // 如果用户选择取消，直接返回
     }
@@ -205,7 +205,7 @@ const PostDetail = () => {
       return;
     }
     // 添加确认对话框
-    const confirmed = window.confirm("您确定要删除这条评论吗？");
+    const confirmed = window.confirm("您確定要删除這條評論嗎？");
     if (!confirmed) {
       return; // 如果用户选择取消，直接返回
     }
@@ -373,7 +373,7 @@ const PostDetail = () => {
                       minute: "2-digit",
                       second: "2-digit",
                     }).replace(/\//g, "-")}{" "}
-                    发布评论
+                    發佈評論
                   </p>
                   <div className="comment-footer flex space-x-4 mt-3">
                     <button
@@ -412,7 +412,7 @@ const PostDetail = () => {
                 className={`px-4 py-2 border rounded ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'bg-gray-100 hover:bg-gray-200'} `}
                 disabled={currentPage === 1}
               >
-                上一页
+                上一頁
               </button>
               <span className="flex items-center">
                 Page {currentPage} of {totalPages}
@@ -422,7 +422,7 @@ const PostDetail = () => {
                 className={`px-4 py-2 border rounded ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'bg-gray-100 hover:bg-gray-200'} `}
                 disabled={currentPage === totalPages}
               >
-                下一页
+                下一頁
               </button>
               <div className="flex items-center ml-4">
                 <input
@@ -436,7 +436,7 @@ const PostDetail = () => {
                   onClick={handlePageJump}
                   className="ml-2 bg-blue-500 text-white rounded px-3 py-1 hover:bg-blue-600"
                 >
-                  跳转
+                  跳轉
                 </button>
               </div>
             </div>
@@ -445,7 +445,7 @@ const PostDetail = () => {
 
           {/* 推荐部分 */}
           <div className="recommendations-section mt-10">
-            <h3 className="text-xl font-semibold">相关推荐</h3>
+            <h3 className="text-xl font-semibold">相關推薦</h3>
             <div className="recommendations-list flex flex-wrap gap-5">
               {recommendations.length > 0 ? (
                 recommendations.map((rec) => (
@@ -466,7 +466,7 @@ const PostDetail = () => {
                   </div>
                 ))
               ) : (
-                <p>没有找到相关推荐</p>
+                <p>沒有找到相關推薦</p>
               )}
             </div>
           </div>
@@ -493,7 +493,7 @@ const PostDetail = () => {
           {/* Table of Contents */}
           {toc.length > 0 && (
             <div className="toc w-64 max-auto overflow-y-auto p-4 border border-gray-300 rounded-lg bg-white shadow-lg">
-              <h3 className="text-xl font-semibold mb-2">目录</h3>
+              <h3 className="text-xl font-semibold mb-2">目錄</h3>
               <ul>
                 {toc.map((item) => (
                   <li key={item.id} className={`toc-item flex items-center mb-2 ${activeId === item.id ? "font-bold" : ""}`}>
