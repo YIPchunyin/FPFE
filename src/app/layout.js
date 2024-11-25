@@ -127,7 +127,7 @@ export default function RootLayout({ children }) {
             <div className="flex">
               {isLoggedIn ? (
                 <div className="relative group flex items-center">
-                  <Link href={`/user/${userDetails._id}`} className="flex items-center">
+                  <Link                     href={`/users/userprofile/${userDetails._id || getUserId()}`} className="flex items-center">
                     <Image
                       src={userDetails.img_path || userimg} // 使用用户头像或默认头像
                       alt={`${userDetails.username || '用户'}的头像`}

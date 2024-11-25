@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { post, get } from "../../utils/request";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PostActions = ({
   postId,
@@ -38,7 +40,7 @@ const PostActions = ({
   const handleLike = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("Please login first");
+      toast.error("Please login first");
       return;
     }
     if (loading) return;
@@ -70,7 +72,7 @@ const PostActions = ({
   const handleCollect = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("Please login first");
+      toast.error("Please login first");
       return;
     }
     if (loading) return;
