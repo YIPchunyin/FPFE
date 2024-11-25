@@ -23,6 +23,27 @@
       "static/chunks/main-app.js",
       "static/css/app/users/userprofile/[userId]/page.css",
       "static/chunks/app/users/userprofile/[userId]/page.js"
+    ],
+    "/user/[userId]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/user/[userId]/page.css",
+      "static/chunks/app/user/[userId]/page.js"
+    ],
+    "/createpost/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/createpost/page.js"
+    ],
+    "/post/edit/[postId]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/post/edit/[postId]/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

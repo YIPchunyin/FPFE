@@ -1,5 +1,8 @@
 {
-  "/users/userprofile/[userId]/page": "app/users/userprofile/[userId]/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
-  "/postsample/[postId]/page": "app/postsample/[postId]/page.js"
+  "/postsample/[postId]/page": "app/postsample/[postId]/page.js",
+  "/createpost/page": "app/createpost/page.js",
+  "/users/userprofile/[userId]/page": "app/users/userprofile/[userId]/page.js",
+  "/post/edit/[postId]/page": "app/post/edit/[postId]/page.js"
 }

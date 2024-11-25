@@ -19,6 +19,7 @@ const PostActions = ({
   const [views, setViews] = useState(initialViews);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isToastifyCssLoaded, setIsToastifyCssLoaded] = useState(false);
 
   //根据postId获取actions数据
   useEffect(() => {
@@ -40,7 +41,7 @@ const PostActions = ({
   const handleLike = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      toast.error("Please login first");
+      toast.error("Please login first", { autoClose: 3000 });
       return;
     }
     if (loading) return;
@@ -59,11 +60,13 @@ const PostActions = ({
       const updatedPost = await response;
       setLikes(updatedPost.likes);
       setIsLiked(updatedPost.hasLiked);
+      toast.success(isLiked ? "You unliked the post!" : "You liked the post!", { autoClose: 3000 });
     } catch (error) {
       setError("Error liking post: " + error.message);
       // Rollback optimistic update
       setLikes(isLiked ? likes + 1 : likes - 1);
-      setIsLiked((prev) => !prev); //
+      setIsLiked((prev) => !prev); 
+      toast.error("Failed to like the post: " + error.message, { autoClose: 3000 });
     } finally {
       setLoading(false);
     }
@@ -72,7 +75,7 @@ const PostActions = ({
   const handleCollect = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      toast.error("Please login first");
+      toast.error("Please login first", { autoClose: 3000 });
       return;
     }
     if (loading) return;
@@ -88,11 +91,13 @@ const PostActions = ({
         throw new Error("Network response was not ok");
       setCollections(response.collections);
       setIsCollected(response.isCollected);
+      toast.success(isCollected ? "You uncollected the post!" : "You collected the post!", { autoClose: 3000 });
     } catch (error) {
       setError("Error collecting post: " + error.message);
       // Rollback optimistic update
       setCollections(isCollected ? collections + 1 : collections - 1);
       setIsCollected(!isCollected);
+      toast.error("Failed to collect the post: " + error.message, { autoClose: 3000 });
     } finally {
       setLoading(false);
     }
@@ -100,6 +105,21 @@ const PostActions = ({
 
   return (
     <div className="flex space-x-4 mt-2 bg-transparent">
+            <ToastContainer
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          zIndex: 9999,
+        }}
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        pauseOnFocusLoss
+      />
       {error && <div className="text-red-500">{error}</div>}
       <button
         onClick={handleLike}
