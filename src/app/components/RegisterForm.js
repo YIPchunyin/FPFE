@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { post } from "../../utils/request";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterForm = ({ onClose, onLoginSuccess }) => {
   const [name, setName] = useState('');
@@ -14,6 +16,7 @@ const RegisterForm = ({ onClose, onLoginSuccess }) => {
     // 简单验证
     if (password !== confirmPassword) {
       setError("密码和确认密码不匹配");
+      toast.error("密碼和確認密碼不匹配", { autoClose: 3000 });
       return;
     }
 
@@ -32,22 +35,40 @@ const RegisterForm = ({ onClose, onLoginSuccess }) => {
           username: res.data.username,
           email: res.data.email,
         });
+        toast.success("註冊成功！", { autoClose: 3000 });
         // 关闭注册窗口
         onClose();
       } else {
         // 注册失败
         console.log('注册失败:', res.message);
+        toast.error(res.message || "註冊失敗，請重試。", { autoClose: 3000 });
         setError(res.message);
       }
     } catch (error) {
       console.error(error);
       setError("发生错误，请稍后再试。");
+      toast.error("發生錯誤，請稍後重試。", { autoClose: 3000 });
     }
   };
 
   return (
     <div className='modalOverlay' style={styles.modalOverlay} onClick={onClose}>
-      <div className='modalContent' style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+       <ToastContainer
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 9999,
+          }}
+          autoClose={5000}
+          hideProgressBar={false}
+          closeOnClick
+          pauseOnHover
+          draggable
+          pauseOnFocusLoss
+        /><div className='modalContent' style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          
         <h2>注册</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>} {/* 显示错误信息 */}
         <form onSubmit={handleRegister}>

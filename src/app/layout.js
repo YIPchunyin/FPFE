@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "@/app/components/RegisterForm";
 import { useEffect, useState } from "react";
+import { getUserId } from "@/utils/auth";
 import { removeToken, getToken } from "./../utils/auth";
 // import logo from '@/app/public/logo2.jpg';
 import logo from '@/app/public/logo.png';
@@ -127,7 +128,7 @@ export default function RootLayout({ children }) {
             <div className="flex">
               {isLoggedIn ? (
                 <div className="relative group flex items-center">
-                  <Link                     href={`/users/userprofile/${userDetails._id || getUserId()}`} className="flex items-center">
+                  <Link href={`/users/userprofile/${userDetails._id || getUserId()}`} className="flex items-center">
                     <Image
                       src={userDetails.img_path || userimg} // 使用用户头像或默认头像
                       alt={`${userDetails.username || '用户'}的头像`}

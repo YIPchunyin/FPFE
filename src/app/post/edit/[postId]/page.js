@@ -63,7 +63,6 @@ const EditPost = () => {
               try {
                 const uploadResult = await uploadImage(file);
                 const imageUrl = uploadResult.imageUrl;
-
                 quill.deleteText(range.index, 5);
                 quill.insertEmbed(range.index, 'image', imageUrl);
                 quill.setSelection(range.index + 1);

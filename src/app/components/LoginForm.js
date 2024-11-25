@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
-import { post,get } from "../../utils/request";
+import { post, get } from "../../utils/request";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginForm = ({ onClose, onLoginSuccess }) => {
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
@@ -22,18 +24,33 @@ const LoginForm = ({ onClose, onLoginSuccess }) => {
         //登錄成功則刷新當前界面
         window.location.reload();
         onLoginSuccess(res.data); // 传递用户详细信息
+        toast.success("登入成功！", { autoClose: 3000 });
       } else if (res.status === 401) {
-        alert(res.message);
+        toast.error(res.message || "登入失敗，請重試。", { autoClose: 3000 });
       } else {
-        alert(res.message);
+        toast.error(res.message || "登入失敗，請重試。", { autoClose: 3000 });
       }
     } else {
-      alert("用户名或密码不能为空。");
-    }
+      toast.warn("用戶名或者密碼不能為空。", { autoClose: 3000 });    }
   }
 
   return (
     <div className="modalOverlay" style={styles.modalOverlay} onClick={onClose}>
+       <ToastContainer
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 9999,
+          }}
+          autoClose={5000}
+          hideProgressBar={false}
+          closeOnClick
+          pauseOnHover
+          draggable
+          pauseOnFocusLoss
+        />
       <div className="modalContent" style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <h2>登入</h2>
         <form onSubmit={userLogin}>

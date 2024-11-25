@@ -5,7 +5,7 @@ import { get, put, post, uploadImage } from "@/utils/request";
 import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
 import "react-toastify/dist/ReactToastify.css";
-
+import LoadingSpinner from "@/app/components/LoadingSpinner";
 export default function UserProfilePage() {
   const [user, setUser] = useState(null);
   const { userId } = useParams();
@@ -116,10 +116,10 @@ export default function UserProfilePage() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
   if (!user) {
-    return <div>User not found</div>;
+    return <LoadingSpinner />;
   }
 
   return (
@@ -363,7 +363,7 @@ export default function UserProfilePage() {
                   <p>發佈者: {post.author}</p>
                 )}
                 <div className="text-sm text-gray-500">
-                  <p>瀏覽次數: {post.views}</p>
+                  {/* <p>瀏覽次數: {post.views}</p> */}
                   <p>創建時間: {post.createdAt}</p>{" "}
                   {/* Directly use the preformatted createdAt */}
                 </div>
