@@ -446,21 +446,21 @@ const PostDetail = () => {
           {/* 推荐部分 */}
           <div className="recommendations-section mt-10">
             <h3 className="text-xl font-semibold">相關推薦</h3>
-            <div className="recommendations-list flex flex-wrap gap-5">
+            <div className="recommendations-list flex flex-col gap-5">
               {recommendations.length > 0 ? (
                 recommendations.map((rec) => (
-                  <div key={rec._id} className="recommendation flex flex-col items-center">
-                    <a href={`/postsample/${rec._id}`} className="recommendation-link">
-                      <div className="recommendation-content flex">
+                  <div key={rec._id} className="recommendation flex flex-row items-center w-full">
+                    <a href={`/postsample/${rec._id}`} className="recommendation-link flex w-full">
+                      <div className="recommendation-content flex w-full">
                         <img
                           src={rec.img_path}
                           alt={rec.title}
                           className="rec-image w-48 rounded"
                         />
-                        <div className="rec-text flex-1 ml-4">
+                        {/* <div className="rec-text flex-1 ml-4">
                           <h4 className="font-semibold">{rec.title}</h4>
                           <p>相似度: {rec.similarity.toFixed(2)}</p>
-                        </div>
+                        </div> */}
                       </div>
                     </a>
                   </div>
@@ -469,6 +469,7 @@ const PostDetail = () => {
                 <p>沒有找到相關推薦</p>
               )}
             </div>
+
           </div>
         </div>
         <div className="fixed right-20 top-24 space-y-6 bg-transparent">
@@ -482,7 +483,7 @@ const PostDetail = () => {
                 alt="user avatar"
               />
               <div>
-                <p className="text-sm font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200" style={{fontSize: "1.6rem", fontWeight: "bold", textAlign: "center"}}>
+                <p className="text-sm font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200" style={{ fontSize: "1.6rem", fontWeight: "bold", textAlign: "center" }}>
                   {postdata.user_id.name}
                 </p>
                 <p className="text-xs text-gray-500">{postdata.user_id.email}</p>
