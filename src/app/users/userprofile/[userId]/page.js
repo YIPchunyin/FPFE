@@ -70,6 +70,7 @@ export default function UserProfilePage() {
       setUser(response);
       toast.success("個人簡介更新成功!");
       setIsEditing(false); // Close editing mode
+      window.location.reload();
     } catch (error) {
       console.error("Error updating user profile:", error);
       toast.error("更新個人簡介失敗!請重新嘗試");
