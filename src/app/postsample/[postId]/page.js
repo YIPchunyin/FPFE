@@ -457,10 +457,10 @@ const PostDetail = () => {
                           alt={rec.title}
                           className="rec-image w-48 rounded"
                         />
-                        {/* <div className="rec-text flex-1 ml-4">
+                        <div className="rec-text flex-1 ml-4">
                           <h4 className="font-semibold">{rec.title}</h4>
-                          <p>相似度: {rec.similarity.toFixed(2)}</p>
-                        </div> */}
+                          {/* <p>相似度: {rec.similarity.toFixed(2)}</p> */}
+                        </div>
                       </div>
                     </a>
                   </div>
