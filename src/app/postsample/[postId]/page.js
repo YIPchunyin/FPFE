@@ -493,7 +493,7 @@ const PostDetail = () => {
           <PostActions postId={postdata._id} />
           {/* Table of Contents */}
           {toc.length > 0 && (
-            <div className="toc w-64 max-auto overflow-y-auto p-4 border border-gray-300 rounded-lg bg-white shadow-lg">
+            <div className="toc w-64 max-h-96 max-auto  overflow-y-auto p-4 border border-gray-300 rounded-lg bg-white shadow-lg">
               <h3 className="text-xl font-semibold mb-2">目錄</h3>
               <ul>
                 {toc.map((item) => (
