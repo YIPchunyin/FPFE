@@ -17,7 +17,7 @@ const LoginForm = ({ onClose, onLoginSuccess }) => {
         false
       );
       console.log("Response from server:", res);
-      if (res.status === 200) {
+      if (res.status == 200) {
         console.log(res)
         localStorage.setItem("token", res.token);
         localStorage.setItem("userId", res.data._id);
@@ -25,8 +25,6 @@ const LoginForm = ({ onClose, onLoginSuccess }) => {
         window.location.reload();
         onLoginSuccess(res.data); // 传递用户详细信息
         toast.success("登入成功！", { autoClose: 3000 });
-      } else if (res.status === 401) {
-        toast.error(res.message || "登入失敗，請重試。", { autoClose: 3000 });
       } else {
         toast.error(res.message || "登入失敗，請重試。", { autoClose: 3000 });
       }
