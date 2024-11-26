@@ -360,7 +360,7 @@ const PostDetail = () => {
                   <h4 className="font-semibold text-lg flex items-center">
                     {comment.user.name}
                     {comment.user._id === postdata.user_id._id && (
-                      <span className="post-owner-label text-green-600 ml-2 text-sm"> (楼主)</span>
+                      <span className="post-owner-label text-green-600 ml-2 text-sm"> (樓主)</span>
                     )}
                   </h4>
                   <p className="mt-1 text-gray-800">{comment.content}</p>
