@@ -66,7 +66,7 @@ const PostActions = ({
       setError("Error liking post: " + error.message);
       // Rollback optimistic update
       setLikes(isLiked ? likes + 1 : likes - 1);
-      setIsLiked((prev) => !prev); 
+      setIsLiked((prev) => !prev);
       alert("Failed to like the post: " + error.message);
     } finally {
       setLoading(false);
@@ -127,11 +127,10 @@ const PostActions = ({
         onClick={handleLike}
         disabled={loading}
         aria-label={isLiked ? "Unlike post" : "Like post"}
-        className={`flex items-center space-x-1 px-4 py-2 rounded-lg transition duration-200 ease-in-out ${
-          isLiked
+        className={`flex items-center space-x-1 px-4 py-2 rounded-lg transition duration-200 ease-in-out ${isLiked
             ? "text-red-500 bg-gray-200 hover:bg-gray-300" // Liked state
             : "text-gray-500 bg-gray-200 hover:bg-gray-300"
-        }`}
+          }`}
       >
         <span>{isLiked ? "❤️" : "🤍"}</span>
         <span>{likes}</span>
@@ -141,11 +140,10 @@ const PostActions = ({
         onClick={handleCollect}
         disabled={loading}
         aria-label={isCollected ? "Uncollect post" : "Collect post"}
-        className={`flex items-center space-x-1 px-4 py-2 rounded-lg transition duration-200 ease-in-out ${
-          isCollected
+        className={`flex items-center space-x-1 px-4 py-2 rounded-lg transition duration-200 ease-in-out ${isCollected
             ? "text-yellow-500 bg-gray-200 hover:bg-gray-300" // Collected state
             : "text-gray-500 bg-gray-200 hover:bg-gray-300"
-        }`}
+          }`}
       >
         <span>{isCollected ? "⭐" : "☆"}</span>
         <span>{collections}</span>

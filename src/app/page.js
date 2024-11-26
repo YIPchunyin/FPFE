@@ -11,6 +11,7 @@ export default function Home() {
   const [visiblePosts, setVisiblePosts] = useState(0);
   const [loading, setLoading] = useState(false);
   const [hiddenBotton, setHiddenBotton] = useState(false);
+  const [isGridView, setIsGridView] = useState(true); // 新增的狀態變量
   useEffect(() => {
     async function fetchData() {
       const data = await get("/posts/");
@@ -22,6 +23,11 @@ export default function Home() {
 
     fetchData();
   }, []);
+
+  const toggleView = () => {
+    setIsGridView((prev) => !prev);
+  };
+
 
   const handleScroll = () => {
     const scrollTop = window.scrollY;
@@ -58,9 +64,59 @@ export default function Home() {
       </Head>
 
       <main className="w-full">
-        <h2 className="my-5 text-xl font-semibold">最新帖子</h2>
+        <h2 className="my-5 text-xl font-semibold">最新帖子<button onClick={toggleView} className="mb-5 ml-3 p-2 bg-blue-500 text-white rounded">
+          {isGridView ? 'hidden title' : 'show title'}
+        </button></h2>
+        
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full">
+{isGridView? (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full">
+    {[...postData]
+      .sort((a, b) => new Date(b.Creation_time) - new Date(a.Creation_time))
+      .slice(0, visiblePosts)
+      .map((post) => (
+        <div key={post._id} className="relative">
+          <Link key={post._id} href={`/postsample/${post._id}`}>
+            <div className="bg-gray-100 p-4 border border-gray-300 rounded shadow-lg hover:shadow-2xl animation-slideInUp">
+              {post.img_path && (
+                <div className="w-full h-[300px] overflow-hidden mb-2 rounded-lg">
+                  <img
+                    src={post.img_path}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                </div>
+              )}
+              <h3 className="text-lg font-medium overflow-hidden overflow-ellipsis whitespace-nowrap">
+                {post.title.length > 20 ? `${post.title.substring(0, 20)}...` : post.title}
+              </h3>
+              <p className="text-gray-600 text-sm">
+                {new Date(post.Creation_time).toLocaleString(undefined, {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: false,
+                })}
+              </p>
+            </div>
+          </Link>
+          <div className="mt-2 w-full m-auto flex justify-center">
+            <PostActions
+              postId={post._id}
+              initialLikes={post.likes}
+              initialCollections={post.collections}
+              initialIsLiked={post.isLiked}
+              initialIsCollected={post.isCollected}
+            />
+          </div>
+        </div>
+      ))}
+  </div>
+)
+:(
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full">
           {[...postData]
             .sort((a, b) => new Date(b.Creation_time) - new Date(a.Creation_time))
             .slice(0, visiblePosts)
@@ -104,6 +160,10 @@ export default function Home() {
               </div>
             ))}
         </div>
+)
+}
+
+        
 
         {loading && <LoadingSpinner />}
 
