@@ -104,7 +104,7 @@ const PostActions = ({
   };
 
   return (
-    <div className="flex space-x-4 mt-2 bg-transparent">
+    <div className="flex justify-center m-auto space-x-4 mt-2 bg-transparent">
       {/* {isToastifyCssLoaded && (
         <ToastContainer
           style={{
