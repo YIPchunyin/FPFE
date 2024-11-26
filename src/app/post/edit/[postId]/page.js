@@ -15,6 +15,28 @@ const EditPost = () => {
   const [text, setText] = useState("");
   const [loadingCoverImage, setLoadingCoverImage] = useState(false);
   useEffect(() => {
+
+    const fetchPost = async () => {
+      try {
+        const response = await get(`/posts/${postId}/edit`);
+        console.log(response);
+        const { post } = response;
+        if (response.permission == false) {
+          alert("您沒有修改許可權。");
+          router.push(`/postsample/${postId}`);
+          return;
+        }
+        setTitle(post.title);
+        setCoverImage(post.img_path);
+        setText(post.content);
+        if (quillRef.current) {
+          quillRef.current.root.innerHTML = post.content;
+        }
+      } catch (error) {
+        console.log("獲取帖子數據失敗，請重試");
+        console.log(error);
+      }
+    };
     const initializeQuill = async () => {
         const Quill = (await import('quill')).default;
         const ImageResize = (await import('quill-image-resize')).default;
@@ -71,6 +93,7 @@ const EditPost = () => {
                 }
               } finally {
                 setLoadingCoverImage(false);
+                
               }
             }
           };
@@ -78,33 +101,15 @@ const EditPost = () => {
         });
 
         quillRef.current = quill;
+
+        fetchPost();
     };
 
     initializeQuill();
 
-    const fetchPost = async () => {
-      try {
-        const response = await get(`/posts/${postId}/edit`);
-        console.log(response);
-        const { post } = response;
-        if (response.permission == false) {
-          alert("您沒有修改許可權。");
-          router.push(`/postsample/${postId}`);
-          return;
-        }
-        setTitle(post.title);
-        setCoverImage(post.img_path);
-        setText(post.content);
-        if (quillRef.current) {
-          quillRef.current.innerHTML = post.content;
-        }
-      } catch (error) {
-        console.log("獲取帖子數據失敗，請重試");
-        console.log(error);
-      }
-    };
+   
 
-    fetchPost();
+
   }, []);
 
   const handleCoverImageUpload = async (event) => {
@@ -127,8 +132,7 @@ const EditPost = () => {
       alert("請輸入標題");
       return;
     }
-
-    if (!text.trim()) {
+    if (text.toString() == "<p><br></p>") {
       alert("請輸入內容");
       return;
     }

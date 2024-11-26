@@ -117,7 +117,7 @@ const Post = () => {
       return;
     }
 
-    if (!text.trim()) {
+    if (text.toString() == "<p><br></p>") {
       alert("請輸入內容");
       return;
     }
