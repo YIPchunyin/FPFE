@@ -16,11 +16,9 @@ const EditPost = () => {
   const [loadingCoverImage, setLoadingCoverImage] = useState(false);
   useEffect(() => {
     const initializeQuill = async () => {
-      if (typeof window !== "undefined" && quillRef.current) {
         const Quill = (await import('quill')).default;
         const ImageResize = (await import('quill-image-resize')).default;
         Quill.register('modules/imageResize', ImageResize);
-
         const quill = new Quill(quillRef.current, {
           theme: 'snow',
           modules: {
@@ -33,7 +31,6 @@ const EditPost = () => {
               [{ 'list': 'ordered' }, { 'list': 'bullet' }],
               [{ 'color': [] }, { 'background': [] }],
               ['link', 'image'],
-
             ],
             imageResize: {
               modules: ['Resize', 'DisplaySize', 'Toolbar'],
@@ -81,17 +78,12 @@ const EditPost = () => {
         });
 
         quillRef.current = quill;
-      }
     };
-    if (quillRef.current) {
-      initializeQuill();
-    }
-  }, []);
 
-  useEffect(() => {
+    initializeQuill();
+
     const fetchPost = async () => {
       try {
-        const currentUserId = getUserId();
         const response = await get(`/posts/${postId}/edit`);
         console.log(response);
         const { post } = response;
@@ -104,11 +96,11 @@ const EditPost = () => {
         setCoverImage(post.img_path);
         setText(post.content);
         if (quillRef.current) {
-          quillRef.current.root.innerHTML = post.content;
+          quillRef.current.innerHTML = post.content;
         }
       } catch (error) {
         console.log("獲取帖子數據失敗，請重試");
-        // router.push(`/postsample/${postId}`);
+        console.log(error);
       }
     };
 
