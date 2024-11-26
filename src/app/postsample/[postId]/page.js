@@ -10,7 +10,6 @@ import LoadingSpinner from "@/app/components/LoadingSpinner";
 import del_img from "@/app/public/del.png";
 import edit_img from "@/app/public/edit.png";
 import PostActions from "@/app/components/PostActions";
-import { loadComponents } from "next/dist/server/load-components";
 const PostDetail = () => {
   const { postId } = useParams();
   const [postdata, setPostdata] = useState(null);
