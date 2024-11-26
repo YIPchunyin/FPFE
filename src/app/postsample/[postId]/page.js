@@ -449,30 +449,27 @@ const PostDetail = () => {
           <div className="recommendations-section mt-10">
             <h3 className="text-xl font-semibold">相關推薦</h3>
             <div className="recommendations-list flex flex-col gap-5">
-              {loadComponents ? (<p>Loading...</p>) : (
-                recommendations.length > 0 ? (
-                  recommendations.map((rec) => (
-                    <div key={rec._id} className="recommendation flex flex-row items-center w-full">
-                      <a href={`/postsample/${rec._id}`} className="recommendation-link flex w-full">
-                        <div className="recommendation-content flex w-full">
-                          <img
-                            src={rec.img_path}
-                            alt={rec.title}
-                            className="rec-image w-48 rounded"
-                          />
-                          <div className="rec-text flex-1 ml-4">
-                            <h4 className="font-semibold">{rec.title}</h4>
-                            {/* <p>相似度: {rec.similarity.toFixed(2)}</p> */}
-                          </div>
+              {recommendations.length > 0 ? (
+                recommendations.map((rec) => (
+                  <div key={rec._id} className="recommendation flex flex-row items-center w-full">
+                    <a href={`/postsample/${rec._id}`} className="recommendation-link flex w-full">
+                      <div className="recommendation-content flex w-full">
+                        <img
+                          src={rec.img_path}
+                          alt={rec.title}
+                          className="rec-image w-48 rounded"
+                        />
+                        <div className="rec-text flex-1 ml-4">
+                          <h4 className="font-semibold">{rec.title}</h4>
+                          {/* <p>相似度: {rec.similarity.toFixed(2)}</p> */}
                         </div>
-                      </a>
-                    </div>
-                  ))
-                ) : (
-                  <p>沒有找到相關推薦</p>
-                )
+                      </div>
+                    </a>
+                  </div>
+                ))
+              ) : (
+                <p>沒有找到相關推薦</p>
               )}
-
             </div>
 
           </div>
