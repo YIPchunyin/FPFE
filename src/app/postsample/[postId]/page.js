@@ -10,6 +10,7 @@ import LoadingSpinner from "@/app/components/LoadingSpinner";
 import del_img from "@/app/public/del.png";
 import edit_img from "@/app/public/edit.png";
 import PostActions from "@/app/components/PostActions";
+import { loadComponents } from "next/dist/server/load-components";
 const PostDetail = () => {
   const { postId } = useParams();
   const [postdata, setPostdata] = useState(null);
@@ -26,6 +27,7 @@ const PostDetail = () => {
   const [totalPages, setTotalPages] = useState(1); // 总页数
   const commentsPerPage = 5; // 每页评论数
   const [inputPage, setInputPage] = useState('');
+  const [loadComments, setLoadComments] = useState(false); // 评论加载状态
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -40,7 +42,7 @@ const PostDetail = () => {
 
         const recommendationsRes = await get(`/posts/recommendations/${postId}`, false);
         setRecommendations(recommendationsRes.recommendations);
-
+        setLoadComments(true);
         generateToc(postData.post.content);
       } catch (error) {
         setError("獲取評論失敗");
@@ -447,27 +449,30 @@ const PostDetail = () => {
           <div className="recommendations-section mt-10">
             <h3 className="text-xl font-semibold">相關推薦</h3>
             <div className="recommendations-list flex flex-col gap-5">
-              {recommendations.length > 0 ? (
-                recommendations.map((rec) => (
-                  <div key={rec._id} className="recommendation flex flex-row items-center w-full">
-                    <a href={`/postsample/${rec._id}`} className="recommendation-link flex w-full">
-                      <div className="recommendation-content flex w-full">
-                        <img
-                          src={rec.img_path}
-                          alt={rec.title}
-                          className="rec-image w-48 rounded"
-                        />
-                        <div className="rec-text flex-1 ml-4">
-                          <h4 className="font-semibold">{rec.title}</h4>
-                          {/* <p>相似度: {rec.similarity.toFixed(2)}</p> */}
+              {loadComponents ? (<p>Loading...</p>) : ({
+                recommendations.length > 0 ? (
+                  recommendations.map((rec) => (
+                    <div key={rec._id} className="recommendation flex flex-row items-center w-full">
+                      <a href={`/postsample/${rec._id}`} className="recommendation-link flex w-full">
+                        <div className="recommendation-content flex w-full">
+                          <img
+                            src={rec.img_path}
+                            alt={rec.title}
+                            className="rec-image w-48 rounded"
+                          />
+                          <div className="rec-text flex-1 ml-4">
+                            <h4 className="font-semibold">{rec.title}</h4>
+                            {/* <p>相似度: {rec.similarity.toFixed(2)}</p> */}
+                          </div>
                         </div>
-                      </div>
-                    </a>
-                  </div>
-                ))
-              ) : (
-                <p>沒有找到相關推薦</p>
-              )}
+                      </a>
+                    </div>
+                  ))
+                ) : (
+                  <p>沒有找到相關推薦</p>
+                )
+              })}
+
             </div>
 
           </div>
