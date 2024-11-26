@@ -188,7 +188,7 @@ const Post = () => {
         <div style={{ maxHeight: '700px', overflow: 'auto', minHeight: '200px' }}>
           <div ref={quillRef} className="mt-2 max-h-screen" style={{ height: 'auto' }} />
         </div>
-        {loadingImage && <div className="mt-2 text-orange-600">圖片載入中...</div>}
+        {/* {loadingImage && <div className="mt-2 text-orange-600">圖片載入中...</div>} */}
         <button
           onClick={handleSubmit}
           disabled={isSubmitting}
