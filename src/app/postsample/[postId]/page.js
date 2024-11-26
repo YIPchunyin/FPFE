@@ -449,7 +449,7 @@ const PostDetail = () => {
           <div className="recommendations-section mt-10">
             <h3 className="text-xl font-semibold">相關推薦</h3>
             <div className="recommendations-list flex flex-col gap-5">
-              {loadComponents ? (<p>Loading...</p>) : ({
+              {loadComponents ? (<p>Loading...</p>) : (
                 recommendations.length > 0 ? (
                   recommendations.map((rec) => (
                     <div key={rec._id} className="recommendation flex flex-row items-center w-full">
@@ -471,7 +471,7 @@ const PostDetail = () => {
                 ) : (
                   <p>沒有找到相關推薦</p>
                 )
-              })}
+              )}
 
             </div>
 
