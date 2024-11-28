@@ -75,6 +75,12 @@ export default function RootLayout({ children }) {
             localStorage.setItem("userId", res.user._id);
             console.log(res.user._id)
           }
+          else if(res.status === 401){
+            removeToken();
+            setIsLoggedIn(false);
+            setUserDetails({});
+            localStorage.removeItem("userId");
+          }
         } catch (error) {
           console.log("請求用戶信息時發生錯誤:", error);
         }

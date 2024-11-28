@@ -11,6 +11,7 @@ async function request(url, options = {}, needToken = true) {
   if (needToken) {
     // 如果有 token，添加到请求头中
     const token = getToken();
+    console.log('token:', token);
     if (token) {
       options.headers["Authorization"] = `Bearer ${token}`;
     }

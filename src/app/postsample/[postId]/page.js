@@ -39,7 +39,7 @@ const PostDetail = () => {
         const commentsData = await get(`/posts/${postId}/comments/${currentPage}/${commentsPerPage}`, true);
         setComments(commentsData.comments);
         setTotalPages(commentsData.totalPages);
-
+        console.log(commentsData);
         const recommendationsRes = await get(`/posts/recommendations/${postId}`, false);
         setRecommendations(recommendationsRes.recommendations);
         setLoadComments(true);
